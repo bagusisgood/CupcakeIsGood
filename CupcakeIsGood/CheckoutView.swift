@@ -12,8 +12,36 @@ struct CheckoutView: View {
     @ObservedObject var order : Order
     
     var body: some View {
-        VStack {
-            Text("Checkout View")
+        GeometryReader { geo in
+
+                VStack (spacing: 20) {
+                    Spacer()
+                    
+                    Image("cupcakes")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: geo.size.width * 0.9)
+                        .cornerRadius(12)
+                    
+                    Text("Total order price: $\(self.order.cost, specifier: "%.2f")")
+                        .font(.title)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        // later in Day 51
+                    }) {
+                        Text("Place Order")
+                            .font(.headline)
+                            .frame(width: geo.size.width * 0.9, height: 50)
+                            .background(Color.blue)
+                            .cornerRadius(12)
+                            .foregroundColor(.white)
+                    }
+                
+                
+            }
+            .padding()
         }
         .navigationBarTitle("Checkout", displayMode: .inline)
     }
