@@ -9,27 +9,52 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var order = Order()
+    
     var body: some View {
         NavigationView {
-            VStack {
-                Text("Hello, there!")
-                    .font(.largeTitle)
-                Text("Commit from my personal mac.")
-                    .font(.title)
-                Text("Commit from my personal mac.")
-                    .font(.headline)
-                Text("Commit from my personal mac.")
-                    .font(.subheadline)
-                Text("Commit from my personal mac.")
-                    .font(.footnote)
-                Text("Commit from my personal mac.")
-                    .font(.caption)
-                Text("Commit from my personal mac.")
-                    .font(.body)
-                Text("Commit from my personal mac.")
-                    .font(.callout)
+            Form {
+                // Section ONE
+                Section(header: Text("Order Details")) {
+                    // Select cupcake type
+                    Picker ("Select your cupcake", selection: $order.type) {
+                        ForEach (0 ..< Order.types.count, id:\.self) {
+                            Text(Order.types[$0])
+                        }
+                    }
+                    
+                    // Select quantity
+                    Stepper(value: $order.quantity, in: 3 ... 20) {
+                        Text("Order quantity: \(order.quantity)")
+                    }
+                }
+                
+                // Section TWO
+                Section(header: Text("Specialties")) {
+                    Toggle(isOn: $order.specialRequestEnabled.animation()) {
+                        Text("Any special request?")
+                    }
+                    
+                    // Add conditional to show follow-up items
+                    if order.specialRequestEnabled {
+                        Toggle(isOn: $order.extraFrosting) {
+                            Text("Extra frosting?")
+                        }
+                        
+                        Toggle(isOn: $order.addSprinkles) {
+                            Text("Add Sprinkles?")
+                        }
+                    }
+                }
+                
+                // Section THREE
+                Section(header: Text("Continue")) {
+                    NavigationLink(destination: AddressView(order: order)) {
+                        Text("Delivery Details")
+                    }
+                }
             }
-            .navigationBarTitle(Text("This has been hacked!"))
+            .navigationBarTitle(Text("cupcakeIsGood"))
             
         }
     }
