@@ -12,10 +12,24 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Cupcake is good, right?")
+                Text("Hello, there!")
                     .font(.largeTitle)
+                Text("Commit from my personal mac.")
+                    .font(.title)
+                Text("Commit from my personal mac.")
+                    .font(.headline)
+                Text("Commit from my personal mac.")
+                    .font(.subheadline)
+                Text("Commit from my personal mac.")
+                    .font(.footnote)
+                Text("Commit from my personal mac.")
+                    .font(.caption)
+                Text("Commit from my personal mac.")
+                    .font(.body)
+                Text("Commit from my personal mac.")
+                    .font(.callout)
             }
-            .navigationBarTitle(Text("CupcakeIsGood"))
+            .navigationBarTitle(Text("This has been hacked!"))
             
         }
     }
