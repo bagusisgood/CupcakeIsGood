@@ -38,7 +38,7 @@ struct ContentView: View {
                     // Add conditional to show follow-up items
                     if order.specialRequestEnabled {
                         Toggle(isOn: $order.extraFrosting) {
-                            Text("Extra frosting?")
+                            Text("Extra Frosting?")
                         }
                         
                         Toggle(isOn: $order.addSprinkles) {
