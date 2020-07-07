@@ -31,6 +31,8 @@ struct AddressView: View {
                 .disabled(order.hasValidAddress == false)
                 
         }
+        .listStyle(GroupedListStyle())
+        .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Delivery Details", displayMode: .inline)
     }
 }

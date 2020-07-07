@@ -39,7 +39,9 @@ class Order: ObservableObject, Codable {
     
     // Address Validation: Simple validation of not allowing empt value
     var hasValidAddress: Bool {
-        if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
+        if (name.trimmingCharacters(in: .whitespacesAndNewlines)).count == 0 || (streetAddress.trimmingCharacters(in: .whitespacesAndNewlines)).count == 0 || (city.trimmingCharacters(in: .whitespacesAndNewlines)).count == 0 || (zip.trimmingCharacters(in: .whitespacesAndNewlines)).count == 0  {
+            return false
+        } else if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
             return false
         }
         

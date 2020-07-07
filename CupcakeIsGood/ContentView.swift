@@ -54,6 +54,10 @@ struct ContentView: View {
                     }
                 }
             }
+                // Found the code from StackOverflow
+            .listStyle(GroupedListStyle())
+            .environment(\.horizontalSizeClass, .regular)
+                
             .navigationBarTitle(Text("cupcakeIsGood"))
             
         }

@@ -18,7 +18,7 @@ struct CheckoutView: View {
     var body: some View {
         GeometryReader { geo in
 
-                VStack (spacing: 20) {
+                VStack (spacing: 10) {
                     Spacer()
                     
                     Image("cupcakes")
@@ -26,6 +26,11 @@ struct CheckoutView: View {
                         .scaledToFit()
                         .frame(width: geo.size.width * 0.9)
                         .cornerRadius(12)
+                    
+                    Text("Cakehappiness in each cup")
+                        .font(.headline)
+
+                    Spacer()
                     
                     Text("Total order price: $\(self.order.cost, specifier: "%.2f")")
                         .font(.title)
@@ -73,17 +78,19 @@ struct CheckoutView: View {
         // STEP THREE: Run the request & process the response
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
-                print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
+                self.confirmationTitle = "We're Sorry!"
+                self.confirmationMessage = "Invalid response from server.\nCheck your interent and try again."
+                self.showingConfirmation = true
                 return
             }
             
             if let decodedOrder = try? JSONDecoder().decode(Order.self, from: data) {
                 self.confirmationTitle = "Thank You!"
-                self.confirmationMessage = "Your order for \(decodedOrder.quantity)x \(Order.types[decodedOrder.type].lowercased()) cupcakes\nis on its way!"
+                self.confirmationMessage = "Your order for:\n \(decodedOrder.quantity)x \(Order.types[decodedOrder.type].lowercased()) cupcakes\nis on its way!"
                 self.showingConfirmation = true
             } else {
                 self.confirmationTitle = "We're Sorry!"
-                self.confirmationMessage = "Invalid response from server. Try again."
+                self.confirmationMessage = "Invalid response from server.\nCheck your interent and try again."
                 self.showingConfirmation = true
             }
             
